@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Sailor Piece Script",
+    "price": 199,
+    "stock": 50,
+    "category": "All Script",
+    "image": "https://via.placeholder.com/400"
+  },
+  {
+    "id": 2,
+    "name": "Reset Token",
+    "price": 49,
+    "stock": 58,
+    "category": "Tools",
+    "image": "https://via.placeholder.com/400"
+  }
+]
