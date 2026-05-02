@@ -16,6 +16,8 @@
         .sidebar.active { transform: translateX(0); }
         .modal-bg { background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); }
         .text-gradient { background: linear-gradient(to right, #ffffff, #666666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-back { display: inline-flex; items-center: center; gap: 8px; color: #666; font-size: 0.75rem; letter-spacing: 0.1em; transition: color 0.3s; margin-bottom: 2rem; }
+        .btn-back:hover { color: #fff; }
     </style>
 </head>
 <body class="bg-gradient-main min-h-screen">
@@ -24,7 +26,6 @@
     <nav class="bg-black/80 backdrop-blur-xl p-5 sticky top-0 z-40 border-b border-white/5">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 cursor-pointer" onclick="showSection('categories')">
-                <!-- New Minimal Logo (M Shape) -->
                 <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="100" height="100" rx="20" fill="white"/>
                     <path d="M25 70V30L50 55L75 30V70" stroke="black" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
@@ -65,21 +66,21 @@
     <section id="categories" class="container mx-auto px-6 py-20">
         <div class="max-w-5xl mx-auto">
             <div class="mb-16">
-                <h2 class="text-5xl font-semibold mb-4 tracking-tighter">COLLECTIONS.</h2>
-                <p class="text-zinc-500 font-light">Select a category to explore our premium digital assets.</p>
+                <h2 class="text-5xl font-semibold mb-4 tracking-tighter uppercase">Collections.</h2>
+                <p class="text-zinc-500 font-light">Explore our premium digital assets and game scripts.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div onclick="loadProducts('All Script')" class="card-minimal p-1 pr-1 group cursor-pointer overflow-hidden rounded-3xl relative h-80">
+                <div onclick="loadProducts('All Script')" class="card-minimal group cursor-pointer overflow-hidden rounded-3xl relative h-80">
                     <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition duration-700">
                     <div class="relative z-10 h-full flex flex-col justify-end p-8">
-                        <h3 class="text-3xl font-bold tracking-tight">ALL SCRIPTS</h3>
+                        <h3 class="text-3xl font-bold tracking-tight uppercase">All Scripts</h3>
                         <p class="text-zinc-400 text-sm">Everything you need for your game.</p>
                     </div>
                 </div>
-                <div onclick="loadProducts('Tools')" class="card-minimal p-1 group cursor-pointer overflow-hidden rounded-3xl relative h-80">
+                <div onclick="loadProducts('Tools')" class="card-minimal group cursor-pointer overflow-hidden rounded-3xl relative h-80">
                     <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition duration-700">
                     <div class="relative z-10 h-full flex flex-col justify-end p-8">
-                        <h3 class="text-3xl font-bold tracking-tight">UTILITIES</h3>
+                        <h3 class="text-3xl font-bold tracking-tight uppercase">Utilities</h3>
                         <p class="text-zinc-400 text-sm">Professional tools and tokens.</p>
                     </div>
                 </div>
@@ -87,12 +88,10 @@
         </div>
     </section>
 
-    <!-- Section: Products (Grid) -->
+    <!-- Section: Products -->
     <section id="products" class="container mx-auto px-6 py-12 hidden">
-        <div class="flex items-center gap-4 mb-10">
-            <button onclick="showSection('categories')" class="text-zinc-500 hover:text-white">← BACK</button>
-            <h2 id="cat-title" class="text-3xl font-bold tracking-tighter uppercase">PRODUCTS</h2>
-        </div>
+        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
+        <h2 id="cat-title" class="text-3xl font-bold tracking-tighter uppercase mb-10">PRODUCTS</h2>
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </section>
 
@@ -103,7 +102,7 @@
             <div class="p-10 md:w-1/2 flex flex-col">
                 <button onclick="closeModal()" class="self-end text-zinc-500 hover:text-white mb-4 uppercase text-xs tracking-widest">Close</button>
                 <h3 id="modal-name" class="text-4xl font-bold mb-4 tracking-tighter">Product Name</h3>
-                <p id="modal-desc" class="text-zinc-400 font-light leading-relaxed mb-10">Description goes here...</p>
+                <p id="modal-desc" class="text-zinc-400 font-light leading-relaxed mb-10 text-sm">Description goes here...</p>
                 <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-8">
                     <div>
                         <span class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Price</span>
@@ -115,9 +114,28 @@
         </div>
     </div>
 
+    <!-- Section: History -->
+    <section id="history" class="container mx-auto px-6 py-12 hidden">
+        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
+        <h2 class="text-4xl font-bold mb-12 tracking-tighter uppercase">Order History.</h2>
+        <div id="history-list" class="grid gap-4 max-w-3xl"></div>
+    </section>
+
+    <!-- Section: Topup -->
+    <section id="topup" class="container mx-auto px-6 py-20 hidden">
+        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
+        <div class="max-w-md mx-auto text-center mt-10">
+            <h2 class="text-4xl font-bold mb-4 tracking-tighter italic">TOPUP CENTER</h2>
+            <p class="text-zinc-500 mb-10 text-sm uppercase tracking-widest">Enter your voucher code below</p>
+            <input type="text" id="topup-code" class="w-full bg-white/5 border border-white/10 p-6 rounded-3xl text-center text-3xl mb-6 focus:border-white/30 outline-none transition" placeholder="••••">
+            <button onclick="processTopup()" class="w-full bg-white text-black py-5 rounded-3xl font-bold hover:bg-zinc-200 transition">REDEEM VOUCHER</button>
+        </div>
+    </section>
+
     <!-- Section: Auth -->
     <section id="auth-page" class="container mx-auto px-6 py-20 hidden">
-        <div class="max-w-md mx-auto bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem]">
+        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
+        <div class="max-w-md mx-auto bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem] mt-10">
             <div class="flex gap-8 mb-10 text-xs tracking-[0.2em] font-bold uppercase">
                 <button onclick="toggleAuthMode('login')" id="login-tab" class="border-b-2 border-white pb-2">LOGIN</button>
                 <button onclick="toggleAuthMode('register')" id="register-tab" class="text-zinc-600 pb-2">REGISTER</button>
@@ -128,22 +146,6 @@
         </div>
     </section>
 
-    <!-- Section: History -->
-    <section id="history" class="container mx-auto px-6 py-12 hidden">
-        <h2 class="text-4xl font-bold mb-12 tracking-tighter">ORDER HISTORY.</h2>
-        <div id="history-list" class="grid gap-4 max-w-3xl"></div>
-    </section>
-
-    <!-- Section: Topup -->
-    <section id="topup" class="container mx-auto px-6 py-20 hidden">
-        <div class="max-w-md mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4 tracking-tighter italic">TOPUP CENTER</h2>
-            <p class="text-zinc-500 mb-10 text-sm uppercase tracking-widest">Enter your voucher code below</p>
-            <input type="text" id="topup-code" class="w-full bg-white/5 border border-white/10 p-6 rounded-3xl text-center text-3xl mb-6 focus:border-white/30 outline-none transition" placeholder="••••">
-            <button onclick="processTopup()" class="w-full bg-white text-black py-5 rounded-3xl font-bold hover:bg-zinc-200 transition">REDEEM VOUCHER</button>
-        </div>
-    </section>
-
     <footer class="py-20 text-center border-t border-white/5 mt-20">
         <p class="text-[10px] tracking-[0.5em] text-zinc-600 uppercase">© 2026 MHOO SHOP | BEYOND THE SURFACE</p>
     </footer>
@@ -151,10 +153,10 @@
     <script>
         let currentUser = JSON.parse(localStorage.getItem('loggedUser')) || null;
         const items = [
-            {id: 1, name: "Anime Vanguards Elite", price: 199, cat: "All Script", desc: "Premium auto-farm script with advanced bypass detection and item filtering.", img: "https://images.unsplash.com/photo-1614728263952-84ea206f99b6?q=80&w=1974&auto=format&fit=crop"},
-            {id: 2, name: "GPO Absolute Script", price: 150, cat: "All Script", desc: "Unlock full potential with infinite stamina, auto-questing, and boss notification.", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"},
-            {id: 3, name: "System Reset Token", price: 49, cat: "Tools", desc: "One-time use token to reset all character statistics and skill trees.", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop"},
-            {id: 4, name: "Executor Booster", price: 99, cat: "Tools", desc: "Optimize your execution speed and reduce game crashes significantly.", img: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1932&auto=format&fit=crop"}
+            {id: 1, name: "Anime Vanguards Elite", price: 199, cat: "All Script", desc: "Premium auto-farm script with advanced bypass detection, auto-skills, and item filtering.", img: "https://images.unsplash.com/photo-1614728263952-84ea206f99b6?q=80&w=1974&auto=format&fit=crop"},
+            {id: 2, name: "GPO Absolute Script", price: 150, cat: "All Script", desc: "Unlock full potential with infinite stamina, auto-questing, fast attack, and boss notifications.", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"},
+            {id: 3, name: "System Reset Token", price: 49, cat: "Tools", desc: "One-time use digital token to reset all character statistics and skill trees safely.", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop"},
+            {id: 4, name: "Executor Booster", price: 99, cat: "Tools", desc: "Optimize your execution speed and reduce game crashes significantly for heavy scripts.", img: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1932&auto=format&fit=crop"}
         ];
 
         function toggleSidebar() {
@@ -192,10 +194,10 @@
                         <img src="${i.img}" class="w-full aspect-square object-cover group-hover:scale-110 transition duration-500">
                     </div>
                     <h3 class="font-bold text-lg mb-1 tracking-tight">${i.name}</h3>
-                    <p class="text-zinc-500 text-xs mb-4 font-light">STOCK: IN STOCK</p>
+                    <p class="text-zinc-500 text-xs mb-4 font-light uppercase tracking-widest">Status: Stable</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xl font-bold">${i.price} <span class="text-[10px] opacity-40">PTS</span></span>
-                        <span class="text-[10px] tracking-widest border border-white/20 px-3 py-1 rounded-full group-hover:bg-white group-hover:text-black transition">VIEW</span>
+                        <span class="text-[10px] tracking-widest border border-white/20 px-3 py-1 rounded-full group-hover:bg-white group-hover:text-black transition">DETAILS</span>
                     </div>
                 </div>`;
             });
@@ -203,8 +205,8 @@
         }
 
         function buy(n, p) {
-            if(!currentUser) return alert('AUTHENTICATION REQUIRED');
-            if(currentUser.points < p) return alert('INSUFFICIENT POINTS');
+            if(!currentUser) return alert('PLEASE LOGIN TO PURCHASE');
+            if(currentUser.points < p) return alert('INSUFFICIENT BALANCE');
             let users = JSON.parse(localStorage.getItem('shopUsers'));
             users[currentUser.username].points -= p;
             const historyObj = { name: n, price: p, date: new Date().toLocaleDateString('th-TH') };
@@ -213,7 +215,7 @@
             currentUser.points -= p;
             localStorage.setItem('shopUsers', JSON.stringify(users));
             localStorage.setItem('loggedUser', JSON.stringify(currentUser));
-            alert('PURCHASE SUCCESSFUL');
+            alert('PURCHASE SUCCESSFUL!');
             closeModal(); updateUI();
         }
 
@@ -222,11 +224,11 @@
             const users = JSON.parse(localStorage.getItem('shopUsers'));
             const userHistory = users[currentUser.username].history || [];
             const list = document.getElementById('history-list');
-            if(userHistory.length === 0) { list.innerHTML = '<p class="text-zinc-600 italic">NO RECENT ORDERS.</p>'; return; }
+            if(userHistory.length === 0) { list.innerHTML = '<p class="text-zinc-600 italic">NO PURCHASE HISTORY FOUND.</p>'; return; }
             list.innerHTML = userHistory.map(h => `
                 <div class="bg-white/5 border border-white/5 p-6 rounded-3xl flex justify-between items-center">
                     <div>
-                        <h4 class="font-bold tracking-tight">${h.name}</h4>
+                        <h4 class="font-bold tracking-tight uppercase">${h.name}</h4>
                         <p class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">${h.date}</p>
                     </div>
                     <p class="font-bold text-zinc-400">-${h.price} PTS</p>
@@ -235,7 +237,6 @@
         }
 
         function toggleAuthMode(m) {
-            authMode = m;
             document.getElementById('login-tab').className = m === 'login' ? 'border-b-2 border-white pb-2' : 'text-zinc-600 pb-2';
             document.getElementById('register-tab').className = m === 'register' ? 'border-b-2 border-white pb-2' : 'text-zinc-600 pb-2';
         }
@@ -245,16 +246,16 @@
             const pass = document.getElementById('auth-pass').value;
             let users = JSON.parse(localStorage.getItem('shopUsers')) || {};
             if(document.getElementById('register-tab').className.includes('white')) {
-                if(users[user]) return alert('USER ALREADY EXISTS');
+                if(users[user]) return alert('USERNAME ALREADY TAKEN');
                 users[user] = { password: pass, points: 0, history: [] };
                 localStorage.setItem('shopUsers', JSON.stringify(users));
-                alert('REGISTRATION COMPLETE');
+                alert('REGISTRATION SUCCESSFUL');
             } else {
                 if(users[user] && users[user].password === pass) {
                     currentUser = { username: user, ...users[user] };
                     localStorage.setItem('loggedUser', JSON.stringify(currentUser));
                     showSection('categories');
-                } else alert('INVALID CREDENTIALS');
+                } else alert('INVALID USERNAME OR PASSWORD');
             }
         }
 
@@ -269,15 +270,15 @@
         }
 
         function processTopup() {
-            if(!currentUser) return alert('LOGIN REQUIRED');
+            if(!currentUser) return alert('PLEASE LOGIN FIRST');
             if(document.getElementById('topup-code').value === "1234") {
                 let users = JSON.parse(localStorage.getItem('shopUsers'));
                 users[currentUser.username].points += 1000;
                 currentUser.points += 1000;
                 localStorage.setItem('shopUsers', JSON.stringify(users));
                 localStorage.setItem('loggedUser', JSON.stringify(currentUser));
-                alert('VOUCHER REDEEMED: +1,000 PTS'); updateUI(); showSection('categories');
-            } else alert('INVALID VOUCHER');
+                alert('REDEEM SUCCESS: +1,000 PTS'); updateUI(); showSection('categories');
+            } else alert('INVALID VOUCHER CODE');
         }
 
         function logout() { localStorage.removeItem('loggedUser'); location.reload(); }
