@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MHOO SHOP - PREMIMUM SCRIPTS</title>
+    <title>MHOO SHOP - สคริปต์ระดับพรีเมียม</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
@@ -22,7 +22,7 @@
 </head>
 <body class="bg-gradient-main min-h-screen">
 
-    <!-- Navbar -->
+    <!-- แถบเมนูหลัก (Navbar) -->
     <nav class="bg-black/80 backdrop-blur-xl p-5 sticky top-0 z-40 border-b border-white/5">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 cursor-pointer" onclick="showSection('categories')">
@@ -35,9 +35,9 @@
             
             <div class="flex items-center gap-6">
                 <div id="nav-user-info" class="hidden flex items-center gap-3 bg-white/5 px-4 py-1.5 rounded-full border border-white/10">
-                    <span id="display-username" class="text-sm font-light tracking-wide">USER</span>
+                    <span id="display-username" class="text-sm font-light tracking-wide uppercase">ชื่อผู้ใช้</span>
                     <div class="h-4 w-[1px] bg-white/20"></div>
-                    <span id="user-points" class="font-bold text-white">0</span><span class="text-[10px] opacity-50 ml-0.5">PTS</span>
+                    <span id="user-points" class="font-bold text-white">0</span><span class="text-[10px] opacity-50 ml-0.5">แต้ม</span>
                 </div>
                 <button onclick="toggleSidebar()" class="text-white hover:opacity-50 transition">
                     <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3.75 9h16.5m-16.5 6.75h16.5"/></svg>
@@ -46,147 +46,147 @@
         </div>
     </nav>
 
-    <!-- Sidebar Menu -->
+    <!-- เมนูข้าง (Sidebar) -->
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/80 z-40 hidden"></div>
     <div id="sidebar" class="sidebar fixed top-0 right-0 h-full w-80 bg-[#050505] z-50 p-10 flex flex-col border-l border-white/5">
-        <button onclick="toggleSidebar()" class="self-end text-white/30 hover:text-white mb-12 text-xl">CLOSE</button>
+        <button onclick="toggleSidebar()" class="self-end text-white/30 hover:text-white mb-12 text-xl uppercase">ปิดเมนู</button>
         <div class="flex flex-col gap-8 text-2xl font-light tracking-widest uppercase">
-            <button onclick="showSection('categories'); toggleSidebar()" class="text-left hover:pl-4 transition-all">Home</button>
-            <button onclick="showSection('categories'); toggleSidebar()" class="text-left hover:pl-4 transition-all">Store</button>
-            <button onclick="showSection('topup'); toggleSidebar()" class="text-left hover:pl-4 transition-all">Topup</button>
-            <button onclick="showSection('history'); toggleSidebar()" class="text-left hover:pl-4 transition-all">History</button>
+            <button onclick="showSection('categories'); toggleSidebar()" class="text-left hover:pl-4 transition-all">หน้าหลัก</button>
+            <button onclick="showSection('categories'); toggleSidebar()" class="text-left hover:pl-4 transition-all">ร้านค้า</button>
+            <button onclick="showSection('topup'); toggleSidebar()" class="text-left hover:pl-4 transition-all">เติมเงิน</button>
+            <button onclick="showSection('history'); toggleSidebar()" class="text-left hover:pl-4 transition-all">ประวัติการซื้อ</button>
         </div>
         <div class="mt-auto pt-10 border-t border-white/5">
-            <button id="sidebar-auth-btn" onclick="showSection('auth-page'); toggleSidebar()" class="w-full bg-white text-black py-4 rounded-full font-bold hover:bg-zinc-200 transition">LOGIN</button>
-            <button id="logout-btn" onclick="logout()" class="hidden w-full bg-zinc-900 text-white py-4 rounded-full font-bold border border-white/10 hover:bg-red-950 transition">LOGOUT</button>
+            <button id="sidebar-auth-btn" onclick="showSection('auth-page'); toggleSidebar()" class="w-full bg-white text-black py-4 rounded-full font-bold hover:bg-zinc-200 transition">เข้าสู่ระบบ</button>
+            <button id="logout-btn" onclick="logout()" class="hidden w-full bg-zinc-900 text-white py-4 rounded-full font-bold border border-white/10 hover:bg-red-950 transition">ออกจากระบบ</button>
         </div>
     </div>
 
-    <!-- Section: Categories -->
+    <!-- ส่วน: หมวดหมู่สินค้า (Categories) -->
     <section id="categories" class="container mx-auto px-6 py-20">
         <div class="max-w-5xl mx-auto">
             <div class="mb-16">
-                <h2 class="text-5xl font-semibold mb-4 tracking-tighter uppercase">Collections.</h2>
-                <p class="text-zinc-500 font-light">Explore our premium digital assets and game scripts.</p>
+                <h2 class="text-5xl font-semibold mb-4 tracking-tighter uppercase">คอลเลกชัน.</h2>
+                <p class="text-zinc-500 font-light italic">เลือกชมสคริปต์และเครื่องมือดิจิทัลระดับพรีเมียมของเรา</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div onclick="loadProducts('All Script')" class="card-minimal group cursor-pointer overflow-hidden rounded-3xl relative h-80">
+                <div onclick="loadProducts('สคริปต์ทั้งหมด')" class="card-minimal group cursor-pointer overflow-hidden rounded-3xl relative h-80">
                     <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition duration-700">
                     <div class="relative z-10 h-full flex flex-col justify-end p-8">
-                        <h3 class="text-3xl font-bold tracking-tight uppercase">All Scripts</h3>
-                        <p class="text-zinc-400 text-sm">Everything you need for your game.</p>
+                        <h3 class="text-3xl font-bold tracking-tight uppercase">สคริปต์ทั้งหมด</h3>
+                        <p class="text-zinc-400 text-sm">ทุกสิ่งที่คุณต้องการสำหรับการเล่นเกม</p>
                     </div>
                 </div>
-                <div onclick="loadProducts('Tools')" class="card-minimal group cursor-pointer overflow-hidden rounded-3xl relative h-80">
+                <div onclick="loadProducts('เครื่องมือ')" class="card-minimal group cursor-pointer overflow-hidden rounded-3xl relative h-80">
                     <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition duration-700">
                     <div class="relative z-10 h-full flex flex-col justify-end p-8">
-                        <h3 class="text-3xl font-bold tracking-tight uppercase">Utilities</h3>
-                        <p class="text-zinc-400 text-sm">Professional tools and tokens.</p>
+                        <h3 class="text-3xl font-bold tracking-tight uppercase">เครื่องมือเสริม</h3>
+                        <p class="text-zinc-400 text-sm">โปรแกรมและระบบจัดการระดับมืออาชีพ</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section: Products -->
+    <!-- ส่วน: รายการสินค้า (Products) -->
     <section id="products" class="container mx-auto px-6 py-12 hidden">
-        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
-        <h2 id="cat-title" class="text-3xl font-bold tracking-tighter uppercase mb-10">PRODUCTS</h2>
+        <button onclick="showSection('categories')" class="btn-back">← กลับหน้าหลัก</button>
+        <h2 id="cat-title" class="text-3xl font-bold tracking-tighter uppercase mb-10">รายการสินค้า</h2>
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </section>
 
-    <!-- Modal: Product Details -->
+    <!-- หน้าต่างสินค้า (Modal) -->
     <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-6 hidden modal-bg">
         <div class="bg-[#0a0a0a] border border-white/10 w-full max-w-4xl rounded-[2rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
             <img id="modal-img" src="" class="w-full md:w-1/2 h-80 md:h-auto object-cover">
             <div class="p-10 md:w-1/2 flex flex-col">
-                <button onclick="closeModal()" class="self-end text-zinc-500 hover:text-white mb-4 uppercase text-xs tracking-widest">Close</button>
-                <h3 id="modal-name" class="text-4xl font-bold mb-4 tracking-tighter">Product Name</h3>
-                <p id="modal-desc" class="text-zinc-400 font-light leading-relaxed mb-10 text-sm">Description goes here...</p>
+                <button onclick="closeModal()" class="self-end text-zinc-500 hover:text-white mb-4 uppercase text-xs tracking-widest">ปิดหน้าต่าง</button>
+                <h3 id="modal-name" class="text-4xl font-bold mb-4 tracking-tighter">ชื่อสินค้า</h3>
+                <p id="modal-desc" class="text-zinc-400 font-light leading-relaxed mb-10 text-sm">รายละเอียดสินค้า...</p>
                 <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-8">
                     <div>
-                        <span class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Price</span>
-                        <span class="text-3xl font-bold"><span id="modal-price">0</span> <span class="text-sm font-light opacity-50">PTS</span></span>
+                        <span class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">ราคา</span>
+                        <span class="text-3xl font-bold"><span id="modal-price">0</span> <span class="text-sm font-light opacity-50">แต้ม</span></span>
                     </div>
-                    <button id="modal-buy-btn" class="bg-white text-black px-10 py-4 rounded-2xl font-bold hover:bg-zinc-200 transition-all">PURCHASE</button>
+                    <button id="modal-buy-btn" class="bg-white text-black px-10 py-4 rounded-2xl font-bold hover:bg-zinc-200 transition-all uppercase">สั่งซื้อสินค้า</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Section: History -->
+    <!-- ส่วน: ประวัติ (History) -->
     <section id="history" class="container mx-auto px-6 py-12 hidden">
-        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
-        <h2 class="text-4xl font-bold mb-12 tracking-tighter uppercase">Order History.</h2>
+        <button onclick="showSection('categories')" class="btn-back">← กลับหน้าหลัก</button>
+        <h2 class="text-4xl font-bold mb-12 tracking-tighter uppercase">ประวัติการสั่งซื้อ.</h2>
         <div id="history-list" class="grid gap-4 max-w-3xl"></div>
     </section>
 
-    <!-- Section: Topup (TrueMoney Integrated) -->
+    <!-- ส่วน: เติมเงิน (Topup) -->
     <section id="topup" class="container mx-auto px-6 py-20 hidden">
-        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
+        <button onclick="showSection('categories')" class="btn-back">← กลับหน้าหลัก</button>
         <div class="max-w-2xl mx-auto mt-10">
             <div class="bg-[#0a0a0a] border border-white/5 rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
-                <!-- Visual Part -->
+                <!-- ส่วนรูปภาพ -->
                 <div class="md:w-1/2 h-64 md:h-auto relative">
                     <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=2071&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
                     <div class="relative p-10 h-full flex flex-col justify-end">
                         <h2 class="text-3xl font-bold tracking-tighter uppercase italic">TrueMoney</h2>
-                        <p class="text-zinc-500 text-xs tracking-widest uppercase">Gift Voucher Redeem</p>
+                        <p class="text-zinc-500 text-xs tracking-widest uppercase">แลกเปลี่ยนซองของขวัญ</p>
                     </div>
                 </div>
                 
-                <!-- Input Part -->
+                <!-- ส่วนป้อนข้อมูล -->
                 <div class="p-10 md:w-1/2 flex flex-col justify-center">
-                    <h2 class="text-2xl font-bold mb-2 tracking-tighter uppercase">Topup Center</h2>
-                    <p class="text-zinc-500 mb-8 text-[10px] font-light uppercase tracking-widest">Enter your TrueMoney Gift link below</p>
+                    <h2 class="text-2xl font-bold mb-2 tracking-tighter uppercase">ระบบเติมแต้ม</h2>
+                    <p class="text-zinc-500 mb-8 text-[10px] font-light uppercase tracking-widest">ใส่ลิงก์ซองของขวัญ TrueMoney ด้านล่าง</p>
                     
                     <div class="space-y-4">
                         <div class="bg-white/5 border border-white/10 p-4 rounded-2xl">
-                            <label class="block text-[9px] text-zinc-500 uppercase tracking-[0.2em] mb-2">Voucher URL</label>
+                            <label class="block text-[9px] text-zinc-500 uppercase tracking-[0.2em] mb-2">ลิงก์ซองของขวัญ</label>
                             <input type="text" id="topup-link" class="w-full bg-transparent border-none text-white focus:ring-0 outline-none placeholder:text-zinc-800 text-sm" placeholder="https://gift.truemoney.com/...">
                         </div>
                         
-                        <button onclick="processTrueMoney()" class="w-full bg-white text-black py-4 rounded-2xl font-black tracking-widest hover:bg-zinc-200 transition-all text-xs">
-                            REDEEM PTS
+                        <button onclick="processTrueMoney()" class="w-full bg-white text-black py-4 rounded-2xl font-black tracking-widest hover:bg-zinc-200 transition-all text-xs uppercase">
+                            แลกแต้มสะสม
                         </button>
                     </div>
 
                     <div class="mt-8 pt-6 border-t border-white/5 text-[9px] text-zinc-600 uppercase tracking-widest leading-loose font-light">
-                        1. Open TrueMoney Wallet<br>
-                        2. Select "Send Gift"<br>
-                        3. Create link and paste here
+                        1. เข้าแอป TrueMoney Wallet<br>
+                        2. เลือกเมนู "ส่งซองของขวัญ"<br>
+                        3. สร้างลิงก์แล้วนำมาวางในช่องนี้
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section: Auth -->
+    <!-- ส่วน: เข้าสู่ระบบ (Auth) -->
     <section id="auth-page" class="container mx-auto px-6 py-20 hidden">
-        <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
+        <button onclick="showSection('categories')" class="btn-back">← กลับหน้าหลัก</button>
         <div class="max-w-md mx-auto bg-[#0a0a0a] border border-white/5 p-10 rounded-[2.5rem] mt-10">
             <div class="flex gap-8 mb-10 text-xs tracking-[0.2em] font-bold uppercase">
-                <button onclick="toggleAuthMode('login')" id="login-tab" class="border-b-2 border-white pb-2">LOGIN</button>
-                <button onclick="toggleAuthMode('register')" id="register-tab" class="text-zinc-600 pb-2">REGISTER</button>
+                <button onclick="toggleAuthMode('login')" id="login-tab" class="border-b-2 border-white pb-2">เข้าสู่ระบบ</button>
+                <button onclick="toggleAuthMode('register')" id="register-tab" class="text-zinc-600 pb-2">สมัครสมาชิก</button>
             </div>
-            <input type="text" id="auth-user" placeholder="USERNAME" class="w-full bg-white/5 border border-white/5 p-5 rounded-2xl mb-4 focus:border-white/20 outline-none transition uppercase text-sm">
-            <input type="password" id="auth-pass" placeholder="PASSWORD" class="w-full bg-white/5 border border-white/5 p-5 rounded-2xl mb-8 focus:border-white/20 outline-none transition uppercase text-sm">
-            <button onclick="handleAuth()" class="w-full bg-white text-black py-5 rounded-2xl font-black tracking-widest hover:bg-zinc-200 transition">CONTINUE</button>
+            <input type="text" id="auth-user" placeholder="ชื่อผู้ใช้" class="w-full bg-white/5 border border-white/5 p-5 rounded-2xl mb-4 focus:border-white/20 outline-none transition uppercase text-sm">
+            <input type="password" id="auth-pass" placeholder="รหัสผ่าน" class="w-full bg-white/5 border border-white/5 p-5 rounded-2xl mb-8 focus:border-white/20 outline-none transition uppercase text-sm">
+            <button onclick="handleAuth()" class="w-full bg-white text-black py-5 rounded-2xl font-black tracking-widest hover:bg-zinc-200 transition">ยืนยัน</button>
         </div>
     </section>
 
     <footer class="py-20 text-center border-t border-white/5 mt-20">
-        <p class="text-[10px] tracking-[0.5em] text-zinc-600 uppercase">© 2026 MHOO SHOP | BEYOND THE SURFACE</p>
+        <p class="text-[10px] tracking-[0.5em] text-zinc-600 uppercase">© 2026 MHOO SHOP | เหนือกว่าทุกพื้นผิว</p>
     </footer>
 
     <script>
         let currentUser = JSON.parse(localStorage.getItem('loggedUser')) || null;
         const items = [
-            {id: 1, name: "Anime Vanguards Elite", price: 199, cat: "All Script", desc: "Premium auto-farm script with advanced bypass detection, auto-skills, and item filtering.", img: "https://images.unsplash.com/photo-1614728263952-84ea206f99b6?q=80&w=1974&auto=format&fit=crop"},
-            {id: 2, name: "GPO Absolute Script", price: 150, cat: "All Script", desc: "Unlock full potential with infinite stamina, auto-questing, fast attack, and boss notifications.", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"},
-            {id: 3, name: "System Reset Token", price: 49, cat: "Tools", desc: "One-time use digital token to reset all character statistics and skill trees safely.", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop"},
-            {id: 4, name: "Executor Booster", price: 99, cat: "Tools", desc: "Optimize your execution speed and reduce game crashes significantly for heavy scripts.", img: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1932&auto=format&fit=crop"}
+            {id: 1, name: "Anime Vanguards Elite", price: 199, cat: "สคริปต์ทั้งหมด", desc: "สคริปต์ฟาร์มอัตโนมัติระดับพรีเมียม พร้อมระบบป้องกันการตรวจจับขั้นสูง ระบบใช้สกิลอัตโนมัติ และคัดกรองไอเทม", img: "https://images.unsplash.com/photo-1614728263952-84ea206f99b6?q=80&w=1974&auto=format&fit=crop"},
+            {id: 2, name: "GPO Absolute Script", price: 150, cat: "สคริปต์ทั้งหมด", desc: "ปลดล็อกพลังสูงสุดด้วยระบบสเตมิน่าไม่จำกัด เควสอัตโนมัติ โจมตีเร็ว และแจ้งเตือนบอสเกิด", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"},
+            {id: 3, name: "System Reset Token", price: 49, cat: "เครื่องมือ", desc: "โทเคนดิจิทัลสำหรับรีเซ็ตค่าสถานะตัวละครและสายสกิลทั้งหมดอย่างปลอดภัย (ใช้ได้ครั้งเดียว)", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop"},
+            {id: 4, name: "Executor Booster", price: 99, cat: "เครื่องมือ", desc: "ปรับแต่งความเร็วในการรันสคริปต์และลดปัญหาเกมค้างสำหรับสคริปต์ที่มีการทำงานหนัก", img: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1932&auto=format&fit=crop"}
         ];
 
         function toggleSidebar() {
@@ -224,10 +224,10 @@
                         <img src="${i.img}" class="w-full aspect-square object-cover group-hover:scale-110 transition duration-500">
                     </div>
                     <h3 class="font-bold text-lg mb-1 tracking-tight">${i.name}</h3>
-                    <p class="text-zinc-500 text-xs mb-4 font-light uppercase tracking-widest">Status: Stable</p>
+                    <p class="text-zinc-500 text-xs mb-4 font-light uppercase tracking-widest">สถานะ: ปกติ</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-xl font-bold">${i.price} <span class="text-[10px] opacity-40">PTS</span></span>
-                        <span class="text-[10px] tracking-widest border border-white/20 px-3 py-1 rounded-full group-hover:bg-white group-hover:text-black transition">DETAILS</span>
+                        <span class="text-xl font-bold">${i.price} <span class="text-[10px] opacity-40">แต้ม</span></span>
+                        <span class="text-[10px] tracking-widest border border-white/20 px-3 py-1 rounded-full group-hover:bg-white group-hover:text-black transition uppercase">รายละเอียด</span>
                     </div>
                 </div>`;
             });
@@ -235,8 +235,8 @@
         }
 
         function buy(n, p) {
-            if(!currentUser) return alert('PLEASE LOGIN TO PURCHASE');
-            if(currentUser.points < p) return alert('INSUFFICIENT BALANCE');
+            if(!currentUser) return alert('กรุณาเข้าสู่ระบบก่อนสั่งซื้อ');
+            if(currentUser.points < p) return alert('แต้มคงเหลือไม่เพียงพอ');
             let users = JSON.parse(localStorage.getItem('shopUsers'));
             users[currentUser.username].points -= p;
             const historyObj = { name: n, price: p, date: new Date().toLocaleDateString('th-TH') };
@@ -245,7 +245,7 @@
             currentUser.points -= p;
             localStorage.setItem('shopUsers', JSON.stringify(users));
             localStorage.setItem('loggedUser', JSON.stringify(currentUser));
-            alert('PURCHASE SUCCESSFUL!');
+            alert('สั่งซื้อสินค้าสำเร็จ!');
             closeModal(); updateUI();
         }
 
@@ -254,14 +254,14 @@
             const users = JSON.parse(localStorage.getItem('shopUsers'));
             const userHistory = users[currentUser.username].history || [];
             const list = document.getElementById('history-list');
-            if(userHistory.length === 0) { list.innerHTML = '<p class="text-zinc-600 italic">NO PURCHASE HISTORY FOUND.</p>'; return; }
+            if(userHistory.length === 0) { list.innerHTML = '<p class="text-zinc-600 italic">ไม่พบประวัติการสั่งซื้อ</p>'; return; }
             list.innerHTML = userHistory.map(h => `
                 <div class="bg-white/5 border border-white/5 p-6 rounded-3xl flex justify-between items-center">
                     <div>
                         <h4 class="font-bold tracking-tight uppercase">${h.name}</h4>
                         <p class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">${h.date}</p>
                     </div>
-                    <p class="font-bold text-zinc-400">-${h.price} PTS</p>
+                    <p class="font-bold text-zinc-400">-${h.price} แต้ม</p>
                 </div>
             `).join('');
         }
@@ -276,17 +276,23 @@
             const pass = document.getElementById('auth-pass').value;
             let users = JSON.parse(localStorage.getItem('shopUsers')) || {};
             if(document.getElementById('register-tab').className.includes('white')) {
-                if(users[user]) return alert('USERNAME ALREADY TAKEN');
+                if(users[user]) return alert('ชื่อผู้ใช้นี้มีอยู่ในระบบแล้ว');
                 users[user] = { password: pass, points: 0, history: [] };
                 localStorage.setItem('shopUsers', JSON.stringify(users));
-                alert('REGISTRATION SUCCESSFUL');
+                alert('สมัครสมาชิกสำเร็จ');
             } else {
                 if(users[user] && users[user].password === pass) {
                     currentUser = { username: user, ...users[user] };
                     localStorage.setItem('loggedUser', JSON.stringify(currentUser));
                     showSection('categories');
-                } else alert('INVALID USERNAME OR PASSWORD');
+                } else alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
             }
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedUser');
+            currentUser = null;
+            location.reload();
         }
 
         function updateUI() {
@@ -299,31 +305,26 @@
             }
         }
 
-        // TrueMoney Gift Function
-                // TrueMoney Gift Function (ปรับอัตราแลกเปลี่ยนเป็น 1:1)
         function processTrueMoney() {
-            if(!currentUser) return alert('PLEASE LOGIN FIRST');
+            if(!currentUser) return alert('กรุณาเข้าสู่ระบบก่อนทำรายการ');
             const link = document.getElementById('topup-link').value;
             const pattern = /^https:\/\/gift\.truemoney\.com\/campaign\/\?v=[a-zA-Z0-9]+$/;
 
             if(!link) return alert('กรุณาใส่ลิงก์ซองของขวัญ');
             if(!pattern.test(link)) return alert('รูปแบบลิงก์ไม่ถูกต้อง!');
 
-            // ดึงค่าเงินบาท (ในที่นี้สมมติว่าเป็น 500 บาท)
-            const amountInBaht = 500; 
-            // ตั้งค่า 1 บาท = 1 Point
+            // ตัวอย่างระบบจำลองการสุ่มเงิน (ของจริงต้องใช้ Backend)
+            const amountInBaht = 50; 
             const pointsToAdd = amountInBaht; 
             
             let users = JSON.parse(localStorage.getItem('shopUsers'));
-            
-            // เพิ่ม Points และบันทึกข้อมูล
             users[currentUser.username].points += pointsToAdd;
             currentUser.points += pointsToAdd;
             
             localStorage.setItem('shopUsers', JSON.stringify(users));
             localStorage.setItem('loggedUser', JSON.stringify(currentUser));
             
-            alert(`REDEEM SUCCESS: ได้รับ +${pointsToAdd.toLocaleString()} PTS (1 บาท = 1P)`);
+            alert(`เติมเงินสำเร็จ: ได้รับ +${pointsToAdd.toLocaleString()} แต้ม (อัตรา 1 บาท = 1 แต้ม)`);
             document.getElementById('topup-link').value = '';
             showSection('categories');
             updateUI();
