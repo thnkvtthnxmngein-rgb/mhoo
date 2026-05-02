@@ -300,6 +300,7 @@
         }
 
         // TrueMoney Gift Function
+                // TrueMoney Gift Function (ปรับอัตราแลกเปลี่ยนเป็น 1:1)
         function processTrueMoney() {
             if(!currentUser) return alert('PLEASE LOGIN FIRST');
             const link = document.getElementById('topup-link').value;
@@ -308,24 +309,25 @@
             if(!link) return alert('กรุณาใส่ลิงก์ซองของขวัญ');
             if(!pattern.test(link)) return alert('รูปแบบลิงก์ไม่ถูกต้อง!');
 
-            // Simulation (In real world, this sends to backend API)
-            let users = JSON.parse(localStorage.getItem('shopUsers'));
-            const amount = 500; // Mock amount
+            // ดึงค่าเงินบาท (ในที่นี้สมมติว่าเป็น 500 บาท)
+            const amountInBaht = 500; 
+            // ตั้งค่า 1 บาท = 1 Point
+            const pointsToAdd = amountInBaht; 
             
-            users[currentUser.username].points += amount;
-            currentUser.points += amount;
+            let users = JSON.parse(localStorage.getItem('shopUsers'));
+            
+            // เพิ่ม Points และบันทึกข้อมูล
+            users[currentUser.username].points += pointsToAdd;
+            currentUser.points += pointsToAdd;
             
             localStorage.setItem('shopUsers', JSON.stringify(users));
             localStorage.setItem('loggedUser', JSON.stringify(currentUser));
             
-            alert(`REDEEM SUCCESS: +${amount.toLocaleString()} PTS`);
+            alert(`REDEEM SUCCESS: ได้รับ +${pointsToAdd.toLocaleString()} PTS (1 บาท = 1P)`);
             document.getElementById('topup-link').value = '';
             showSection('categories');
             updateUI();
         }
-
-        function logout() { localStorage.removeItem('loggedUser'); location.reload(); }
-        updateUI();
     </script>
 </body>
 </html>
