@@ -4,65 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Shop - หมวดหมู่สินค้า</title>
+    <title>My Shop - All in One</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Kanit', sans-serif; background-color: #0f172a; color: white; }
-        .category-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .category-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        body { font-family: 'Kanit', sans-serif; background-color: #0a0f1e; color: white; scroll-behavior: smooth; }
+        .category-card, .product-card { transition: all 0.3s ease; border: 1px solid #1e293b; }
+        .category-card:hover, .product-card:hover { transform: translateY(-8px); border-color: #3b82f6; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
+    <!-- 1. Navbar (แสดงทุกหน้า) -->
     <nav class="bg-slate-900 p-4 sticky top-0 z-50 border-b border-slate-800">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-blue-500">MY SHOP</h1>
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('category-section')">
+                <h1 class="text-2xl font-bold text-blue-500 italic">MY SHOP</h1>
+            </div>
             <div class="space-x-6 hidden md:flex">
-                <a href="#" class="hover:text-blue-400">หน้าหลัก</a>
-                <a href="#" class="text-blue-400">หมวดหมู่</a>
+                <button onclick="showPage('category-section')" class="hover:text-blue-400">หน้าหลัก</button>
                 <a href="#" class="hover:text-blue-400">เติมเงิน</a>
                 <a href="#" class="bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">เข้าสู่ระบบ</a>
             </div>
         </div>
     </nav>
 
-    <header class="py-12 text-center">
-        <h2 class="text-4xl font-bold mb-2">หมวดหมู่</h2>
-        <p class="text-slate-400">เลือกชมสินค้าตามประเภทที่คุณต้องการ</p>
-    </header>
+    <!-- 2. ส่วนของหน้า "หมวดหมู่สินค้า" -->
+    <section id="category-section" class="py-12">
+        <header class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-2 uppercase">หมวดหมู่</h2>
+            <p class="text-slate-400">เลือกประเภทสินค้าที่ต้องการ</p>
+        </header>
 
-    <main class="container mx-auto px-4 pb-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div class="category-card bg-slate-800 rounded-2xl overflow-hidden border border-slate-700">
-                <div class="h-48 bg-slate-700 flex items-center justify-center">
-                    <span class="text-5xl">📦</span>
-                </div>
+        <main class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- หมวดหมู่: All Script -->
+            <div class="category-card bg-slate-800/50 rounded-2xl overflow-hidden">
+                <div class="h-48 bg-slate-700/50 flex items-center justify-center text-6xl">📦</div>
                 <div class="p-6 text-center">
-                    <h3 class="text-xl font-semibold">All Sript</h3>
-                    <p class="text-blue-400 mt-2">9 สินค้า</p>
-                    <button class="mt-4 w-full bg-slate-700 py-2 rounded-lg hover:bg-slate-600">ดูสินค้า</button>
+                    <h3 class="text-2xl font-semibold">All Script</h3>
+                    <p class="text-blue-400 mt-2">9 รายการ</p>
+                    <button onclick="showPage('product-section', 'All Script')" class="mt-4 w-full bg-blue-600 py-3 rounded-xl font-bold hover:bg-blue-700">ดูสินค้า</button>
                 </div>
             </div>
 
-            <div class="category-card bg-slate-800 rounded-2xl overflow-hidden border border-slate-700">
-                <div class="h-48 bg-slate-700 flex items-center justify-center">
-                    <span class="text-5xl">🛠️</span>
-                </div>
+            <!-- หมวดหมู่: Tools -->
+            <div class="category-card bg-slate-800/50 rounded-2xl overflow-hidden">
+                <div class="h-48 bg-slate-700/50 flex items-center justify-center text-6xl">🛠️</div>
                 <div class="p-6 text-center">
-                    <h3 class="text-xl font-semibold">Toll</h3>
-                    <p class="text-blue-400 mt-2">1 สินค้า</p>
-                    <button class="mt-4 w-full bg-slate-700 py-2 rounded-lg hover:bg-slate-600">ดูสินค้า</button>
+                    <h3 class="text-2xl font-semibold">Tools</h3>
+                    <p class="text-blue-400 mt-2">1 รายการ</p>
+                    <button onclick="showPage('product-section', 'Tools')" class="mt-4 w-full bg-slate-700 py-3 rounded-xl font-bold hover:bg-slate-600">ดูสินค้า</button>
                 </div>
             </div>
+        </main>
+    </section>
 
+    <!-- 3. ส่วนของหน้า "เลือกสินค้า" (ซ่อนไว้ตอนแรก) -->
+    <section id="product-section" class="py-12 hidden">
+        <div class="container mx-auto px-4 mb-8 flex items-center gap-4">
+            <button onclick="showPage('category-section')" class="bg-slate-800 p-2 rounded-full hover:bg-slate-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <h2 id="current-category-title" class="text-2xl font-bold border-l-4 border-blue-600 pl-3">สินค้าทั้งหมด</h2>
+        </div>
+
+        <main class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- สินค้าตัวอย่าง -->
+            <div class="product-card bg-slate-900/80 rounded-2xl p-4">
+                <img src="https://via.placeholder.com/400" class="w-full aspect-square object-cover rounded-xl mb-4">
+                <h3 class="text-lg font-medium truncate">Sailor Piece...</h3>
+                <div class="flex justify-between items-center mt-2">
+                    <span class="text-emerald-400 font-bold text-xl">199฿</span>
+                    <span class="text-emerald-500/60 text-xs">เหลือ 50</span>
+                </div>
+                <button class="mt-4 w-full bg-indigo-600 py-2 rounded-xl font-semibold hover:bg-indigo-700">ซื้อเลย</button>
             </div>
-    </main>
 
-    <footer class="bg-slate-900 py-8 border-t border-slate-800 text-center text-slate-500">
-        <p>© 2024 YourShop Name. All rights reserved.</p>
+            <div class="product-card bg-slate-900/80 rounded-2xl p-4">
+                <img src="https://via.placeholder.com/400" class="w-full aspect-square object-cover rounded-xl mb-4">
+                <h3 class="text-lg font-medium truncate">Reset Token</h3>
+                <div class="flex justify-between items-center mt-2">
+                    <span class="text-emerald-400 font-bold text-xl">49฿</span>
+                    <span class="text-emerald-500/60 text-xs">เหลือ 58</span>
+                </div>
+                <button class="mt-4 w-full bg-indigo-600 py-2 rounded-xl font-semibold hover:bg-indigo-700">ซื้อเลย</button>
+            </div>
+        </main>
+    </section>
+
+    <!-- 4. Footer -->
+    <footer class="py-10 border-t border-slate-800 text-center text-slate-500">
+        <p>© 2026 My Shop. All rights reserved.</p>
     </footer>
+
+    <!-- JavaScript สำหรับสลับหน้า -->
+    <script>
+        function showPage(pageId, categoryName) {
+            // ซ่อนทุก Section ก่อน
+            document.getElementById('category-section').classList.add('hidden');
+            document.getElementById('product-section').classList.add('hidden');
+
+            // แสดงเฉพาะ Section ที่ต้องการ
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.remove('hidden');
+
+            // ถ้ามีการส่งชื่อหมวดหมู่มา ให้เปลี่ยนหัวข้อด้วย
+            if (categoryName) {
+                document.getElementById('current-category-title').innerText = "หมวดหมู่: " + categoryName;
+            }
+
+            // เลื่อนหน้าจอกลับไปด้านบนสุด
+            window.scrollTo(0, 0);
+        }
+    </script>
 
 </body>
 </html>
