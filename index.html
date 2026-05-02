@@ -7,170 +7,209 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Kanit', sans-serif; background-color: #0a0f1e; color: white; scroll-behavior: smooth; }
+        body { font-family: 'Kanit', sans-serif; background-color: #0a0f1e; color: white; overflow-x: hidden; }
         .card-hover { transition: all 0.3s ease; border: 1px solid #1e293b; }
-        .card-hover:hover { transform: translateY(-5px); border-color: #3b82f6; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2); }
+        .card-hover:hover { transform: translateY(-5px); border-color: #3b82f6; }
         .hidden { display: none; }
-        .glow-text { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        .sidebar { transition: transform 0.3s ease-in-out; transform: translateX(100%); }
+        .sidebar.active { transform: translateX(0); }
     </style>
 </head>
 <body>
 
-    <!-- Navbar พร้อมโลโก้ SVG -->
-    <nav class="bg-slate-900/90 backdrop-blur-md p-4 sticky top-0 z-50 border-b border-slate-800">
+    <!-- Navbar -->
+    <nav class="bg-slate-900/90 backdrop-blur-md p-4 sticky top-0 z-40 border-b border-slate-800">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('categories')">
-                <!-- SVG Logo: Cyber Pig -->
-                <svg width="40" height="40" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="256" cy="256" r="240" fill="#1e293b" stroke="#3b82f6" stroke-width="20"/>
-                    <path d="M160 220C160 180 200 150 256 150C312 150 352 180 352 220C352 260 312 290 256 290C200 290 160 260 160 220Z" fill="#3b82f6"/>
-                    <circle cx="220" cy="210" r="15" fill="white"/>
-                    <circle cx="292" cy="210" r="15" fill="white"/>
-                    <rect x="226" y="240" width="60" height="30" rx="15" fill="#1e1b4b"/>
-                    <circle cx="241" cy="255" r="5" fill="#3b82f6"/>
-                    <circle cx="271" cy="255" r="5" fill="#3b82f6"/>
-                    <path d="M180 160L140 120" stroke="#3b82f6" stroke-width="15" stroke-linecap="round"/>
-                    <path d="M332 160L372 120" stroke="#3b82f6" stroke-width="15" stroke-linecap="round"/>
-                </svg>
-                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent italic glow-text">MHOO SHOP</h1>
+                <svg width="35" height="35" viewBox="0 0 512 512" fill="none"><circle cx="256" cy="256" r="240" fill="#1e293b" stroke="#3b82f6" stroke-width="20"/><path d="M160 220C160 180 200 150 256 150C312 150 352 180 352 220C352 260 312 290 256 290C200 290 160 260 160 220Z" fill="#3b82f6"/></svg>
+                <h1 class="text-xl font-bold text-blue-500 italic">MHOO SHOP</h1>
             </div>
+            
             <div class="flex items-center gap-4">
-                <div class="bg-slate-800 px-3 py-1 rounded-full border border-blue-500/50">
-                    <span class="text-blue-400 text-sm">คงเหลือ: </span>
-                    <span id="user-points" class="font-bold text-white">0</span>
-                    <span class="text-blue-400 text-xs"> P</span>
+                <div id="nav-user-info" class="hidden flex items-center gap-2 bg-slate-800 px-3 py-1 rounded-full border border-blue-500/30">
+                    <span id="display-username" class="text-sm font-medium text-white">User</span>
+                    <span id="user-points" class="text-blue-400 font-bold">0</span><span class="text-blue-400 text-xs text-blue-400">P</span>
                 </div>
-                <button onclick="showSection('topup')" class="bg-blue-600 px-4 py-1 rounded-lg text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">เติมเงิน</button>
+                <!-- ปุ่มเปิด Sidebar เหมือนในรูป -->
+                <button onclick="toggleSidebar()" class="text-white p-2">
+                    <svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"/></svg>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Section: Categories -->
-    <section id="categories" class="container mx-auto px-4 py-12">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold mb-2 uppercase tracking-wider">หมวดหมู่สินค้า</h2>
-            <p class="text-slate-400">เลือกประเภทสคริปต์ที่ต้องการสั่งซื้อ</p>
+    <!-- Sidebar Menu (หน้าต่างแบบในรูป) -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
+    <div id="sidebar" class="sidebar fixed top-0 right-0 h-full w-72 bg-black z-50 p-8 flex flex-col">
+        <button onclick="toggleSidebar()" class="self-end text-white mb-8 text-2xl">✕</button>
+        
+        <div class="flex flex-col gap-6 text-xl font-light">
+            <button onclick="showSection('categories'); toggleSidebar()" class="text-left hover:text-blue-400">หน้าหลัก</button>
+            <button onclick="showSection('categories'); toggleSidebar()" class="text-left hover:text-blue-400">สินค้า</button>
+            <button onclick="showSection('topup'); toggleSidebar()" class="text-left hover:text-blue-400">เติมเงิน</button>
+            <button onclick="alert('ประวัติการซื้อ'); toggleSidebar()" class="text-left hover:text-blue-400">ประวัติ</button>
+            <button onclick="alert('ติดต่อสอบถาม'); toggleSidebar()" class="text-left hover:text-blue-400">ติดต่อ</button>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div onclick="loadProducts('All Script')" class="card-hover bg-slate-800/30 p-10 rounded-3xl text-center cursor-pointer backdrop-blur-sm">
-                <span class="text-7xl mb-4 block">📦</span>
-                <h3 class="text-2xl font-bold mb-2">All Script</h3>
-                <p class="text-blue-400">คลิกเพื่อดูรายการทั้งหมด</p>
+
+        <div class="mt-auto">
+            <button id="sidebar-auth-btn" onclick="showSection('auth-page'); toggleSidebar()" class="bg-white text-black px-6 py-2 rounded-lg flex items-center gap-2 font-medium">
+                <span>เข้าสู่ระบบ</span>
+            </button>
+            <button id="logout-btn" onclick="logout()" class="hidden bg-red-600 text-white px-6 py-2 rounded-lg font-medium">ออกจากระบบ</button>
+        </div>
+    </div>
+
+    <!-- Section: Auth (สมัครสมาชิก / เข้าสู่ระบบ) -->
+    <section id="auth-page" class="container mx-auto px-4 py-20 hidden">
+        <div class="max-w-md mx-auto bg-slate-900 border border-slate-800 p-8 rounded-3xl">
+            <div class="flex gap-4 mb-8">
+                <button onclick="toggleAuthMode('login')" id="login-tab" class="text-xl font-bold border-b-2 border-blue-500 pb-2">เข้าสู่ระบบ</button>
+                <button onclick="toggleAuthMode('register')" id="register-tab" class="text-xl font-bold text-slate-500 pb-2">สมัครสมาชิก</button>
             </div>
-            <div onclick="loadProducts('Tools')" class="card-hover bg-slate-800/30 p-10 rounded-3xl text-center cursor-pointer backdrop-blur-sm">
-                <span class="text-7xl mb-4 block">🛠️</span>
-                <h3 class="text-2xl font-bold mb-2">Tools</h3>
-                <p class="text-blue-400">อุปกรณ์และเครื่องมือเสริม</p>
+
+            <div class="space-y-4">
+                <input type="text" id="auth-user" placeholder="ชื่อผู้ใช้งาน" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500">
+                <input type="password" id="auth-pass" placeholder="รหัสผ่าน" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl outline-none focus:border-blue-500">
+                <button id="auth-main-btn" onclick="handleAuth()" class="w-full bg-blue-600 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition">ตกลง</button>
             </div>
+        </div>
+    </section>
+
+    <!-- Section: Categories (หน้าแรก) -->
+    <section id="categories" class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-center mb-10">หมวดหมู่สินค้า</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto text-center">
+            <div onclick="loadProducts('All Script')" class="card-hover bg-slate-800/30 p-10 rounded-3xl cursor-pointer">
+                <span class="text-7xl block mb-4">📦</span><h3 class="text-2xl font-bold">All Script</h3>
+            </div>
+            <div onclick="loadProducts('Tools')" class="card-hover bg-slate-800/30 p-10 rounded-3xl cursor-pointer">
+                <span class="text-7xl block mb-4">🛠️</span><h3 class="text-2xl font-bold">Tools</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Topup -->
+    <section id="topup" class="container mx-auto px-4 py-20 hidden">
+        <div class="max-w-md mx-auto bg-slate-800/40 p-8 rounded-3xl border border-slate-700 text-center">
+            <h2 class="text-2xl font-bold mb-6">เติมเงิน (รหัสทดสอบ 1234)</h2>
+            <input type="text" id="topup-code" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-center text-2xl mb-4" placeholder="0000">
+            <button onclick="processTopup()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold hover:bg-emerald-700">ยืนยัน</button>
         </div>
     </section>
 
     <!-- Section: Products -->
     <section id="products" class="container mx-auto px-4 py-12 hidden">
-        <div class="flex items-center justify-between mb-8">
-            <div class="flex items-center gap-4">
-                <button onclick="showSection('categories')" class="bg-slate-800 p-2 rounded-full hover:bg-slate-700">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <h2 id="cat-title" class="text-2xl font-bold border-l-4 border-blue-500 pl-3 uppercase">สินค้า</h2>
-            </div>
-        </div>
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <!-- สินค้าจะถูกใส่ด้วย JS -->
-        </div>
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
     </section>
-
-    <!-- Section: Topup -->
-    <section id="topup" class="container mx-auto px-4 py-12 hidden">
-        <div class="max-w-md mx-auto bg-slate-800/40 p-8 rounded-3xl border border-slate-700 backdrop-blur-md">
-            <h2 class="text-2xl font-bold mb-6 text-center">เติมเงินเข้าระบบ</h2>
-            <div class="mb-6">
-                <label class="text-slate-400 text-sm block mb-2 text-center">ระบุรหัสบัตรเติมเงิน</label>
-                <input type="text" id="topup-code" class="w-full bg-slate-900 border border-slate-700 p-4 rounded-xl text-center text-2xl tracking-widest text-blue-400 focus:border-blue-500 outline-none" placeholder="0000">
-            </div>
-            <button onclick="processTopup()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-500/20">ยืนยันการเติมเงิน</button>
-            <button onclick="showSection('categories')" class="w-full mt-4 text-slate-500 hover:text-white transition">ยกเลิก</button>
-            <div class="mt-6 p-4 bg-slate-900/50 rounded-xl text-xs text-slate-400">
-                <p>* ทดสอบระบบ: พิมพ์รหัส 1234 เพื่อรับ 1,000 P</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 border-t border-slate-800 text-center text-slate-600">
-        <p>© 2026 MHOO SHOP. All rights reserved.</p>
-    </footer>
 
     <script>
-        // ระบบ Point
-        let points = parseInt(localStorage.getItem('userPoints')) || 0;
-        updatePointDisplay();
+        let currentUser = JSON.parse(localStorage.getItem('loggedUser')) || null;
+        let authMode = 'login';
 
-        function updatePointDisplay() {
-            document.getElementById('user-points').innerText = points.toLocaleString();
-            localStorage.setItem('userPoints', points);
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebar-overlay').classList.toggle('hidden');
         }
 
-        // ระบบสลับหน้า
         function showSection(id) {
-            ['categories', 'products', 'topup'].forEach(s => document.getElementById(s).classList.add('hidden'));
+            ['categories', 'products', 'topup', 'auth-page'].forEach(s => document.getElementById(s).classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
-            window.scrollTo(0,0);
+            updateUI();
         }
 
-        // ระบบเติมเงิน
-        function processTopup() {
-            const code = document.getElementById('topup-code').value;
-            if (code === "1234") {
-                points += 1000;
-                alert("✅ เติมเงินสำเร็จ! ได้รับ 1,000 Point");
-                updatePointDisplay();
-                document.getElementById('topup-code').value = "";
-                showSection('categories');
+        function toggleAuthMode(mode) {
+            authMode = mode;
+            document.getElementById('login-tab').className = mode === 'login' ? 'text-xl font-bold border-b-2 border-blue-500 pb-2' : 'text-xl font-bold text-slate-500 pb-2';
+            document.getElementById('register-tab').className = mode === 'register' ? 'text-xl font-bold border-b-2 border-blue-500 pb-2' : 'text-xl font-bold text-slate-500 pb-2';
+        }
+
+        function handleAuth() {
+            const user = document.getElementById('auth-user').value;
+            const pass = document.getElementById('auth-pass').value;
+            if(!user || !pass) return alert('กรุณากรอกข้อมูล');
+
+            let users = JSON.parse(localStorage.getItem('shopUsers')) || {};
+
+            if(authMode === 'register') {
+                if(users[user]) return alert('ชื่อนี้ถูกใช้ไปแล้ว');
+                users[user] = { password: pass, points: 0 };
+                localStorage.setItem('shopUsers', JSON.stringify(users));
+                alert('สมัครสมาชิกสำเร็จ!');
+                toggleAuthMode('login');
             } else {
-                alert("❌ รหัสไม่ถูกต้อง");
+                if(users[user] && users[user].password === pass) {
+                    currentUser = { username: user, ...users[user] };
+                    localStorage.setItem('loggedUser', JSON.stringify(currentUser));
+                    showSection('categories');
+                } else {
+                    alert('ชื่อหรือรหัสผ่านไม่ถูกต้อง');
+                }
             }
         }
 
-        // ข้อมูลสินค้า (เปลี่ยนรูปและราคาตรงนี้)
-        const mockData = [
-            { name: "Sailor Piece Script", price: 199, stock: 50, category: "All Script", image: "https://via.placeholder.com/400" },
-            { name: "Reset Token", price: 49, stock: 58, category: "Tools", image: "https://via.placeholder.com/400" }
-        ];
+        function updateUI() {
+            if(currentUser) {
+                document.getElementById('nav-user-info').classList.remove('hidden');
+                document.getElementById('display-username').innerText = currentUser.username;
+                document.getElementById('user-points').innerText = currentUser.points;
+                document.getElementById('sidebar-auth-btn').classList.add('hidden');
+                document.getElementById('logout-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('nav-user-info').classList.add('hidden');
+                document.getElementById('sidebar-auth-btn').classList.remove('hidden');
+                document.getElementById('logout-btn').classList.add('hidden');
+            }
+        }
 
-        function loadProducts(category) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = '';
-            document.getElementById('cat-title').innerText = category;
+        function logout() {
+            localStorage.removeItem('loggedUser');
+            currentUser = null;
+            location.reload();
+        }
 
-            const filtered = mockData.filter(p => p.category === category);
-            filtered.forEach(p => {
-                grid.innerHTML += `
-                    <div class="card-hover bg-slate-900/60 rounded-2xl p-4 flex flex-col">
-                        <img src="${p.image}" class="w-full aspect-square object-cover rounded-xl mb-4">
-                        <h3 class="font-medium truncate mb-1">${p.name}</h3>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-emerald-400 font-bold text-xl">${p.price} P</span>
-                            <span class="text-slate-500 text-xs">เหลือ ${p.stock}</span>
-                        </div>
-                        <button onclick="buyProduct('${p.name}', ${p.price})" class="mt-auto w-full bg-indigo-600 py-2 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20">ซื้อเลย</button>
-                    </div>
-                `;
+        function processTopup() {
+            if(!currentUser) return alert('กรุณาเข้าสู่ระบบก่อน');
+            const code = document.getElementById('topup-code').value;
+            if(code === "1234") {
+                let users = JSON.parse(localStorage.getItem('shopUsers'));
+                users[currentUser.username].points += 1000;
+                currentUser.points += 1000;
+                localStorage.setItem('shopUsers', JSON.stringify(users));
+                localStorage.setItem('loggedUser', JSON.stringify(currentUser));
+                alert('เติมเงินสำเร็จ!');
+                updateUI();
+                showSection('categories');
+            }
+        }
+
+        // สินค้าตัวอย่าง
+        const items = [{name:"Sailor Script", price:199, cat:"All Script"}, {name:"Reset Tool", price:49, cat:"Tools"}];
+        function loadProducts(c) {
+            const grid = document.getElementById('product-grid'); grid.innerHTML = '';
+            items.filter(i => i.cat === c).forEach(i => {
+                grid.innerHTML += `<div class="card-hover bg-slate-900/60 p-4 rounded-2xl">
+                    <div class="aspect-square bg-slate-800 rounded-xl mb-4"></div>
+                    <h3 class="font-medium">${i.name}</h3>
+                    <p class="text-blue-400 font-bold text-lg">${i.price} P</p>
+                    <button onclick="buy('${i.name}',${i.price})" class="mt-4 w-full bg-blue-600 py-2 rounded-xl text-sm">ซื้อเลย</button>
+                </div>`;
             });
             showSection('products');
         }
 
-        function buyProduct(name, price) {
-            if (points >= price) {
-                if (confirm(`ยืนยันการซื้อ ${name}\nราคา ${price} Point?`)) {
-                    points -= price;
-                    updatePointDisplay();
-                    alert("🎉 สั่งซื้อสำเร็จ! ขอบคุณที่ใช้บริการ");
-                }
-            } else {
-                alert("⚠️ Point ไม่เพียงพอ กรุณาเติมเงิน");
-                showSection('topup');
-            }
+        function buy(n, p) {
+            if(!currentUser) return alert('กรุณาเข้าสู่ระบบ');
+            if(currentUser.points < p) return alert('Point ไม่พอ');
+            let users = JSON.parse(localStorage.getItem('shopUsers'));
+            users[currentUser.username].points -= p;
+            currentUser.points -= p;
+            localStorage.setItem('shopUsers', JSON.stringify(users));
+            localStorage.setItem('loggedUser', JSON.stringify(currentUser));
+            alert('ซื้อสำเร็จ!');
+            updateUI();
         }
+
+        updateUI();
     </script>
 </body>
 </html>
