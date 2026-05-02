@@ -121,14 +121,44 @@
         <div id="history-list" class="grid gap-4 max-w-3xl"></div>
     </section>
 
-    <!-- Section: Topup -->
+    <!-- Section: Topup (TrueMoney Integrated) -->
     <section id="topup" class="container mx-auto px-6 py-20 hidden">
         <button onclick="showSection('categories')" class="btn-back">← BACK TO HOME</button>
-        <div class="max-w-md mx-auto text-center mt-10">
-            <h2 class="text-4xl font-bold mb-4 tracking-tighter italic">TOPUP CENTER</h2>
-            <p class="text-zinc-500 mb-10 text-sm uppercase tracking-widest">Enter your voucher code below</p>
-            <input type="text" id="topup-code" class="w-full bg-white/5 border border-white/10 p-6 rounded-3xl text-center text-3xl mb-6 focus:border-white/30 outline-none transition" placeholder="••••">
-            <button onclick="processTopup()" class="w-full bg-white text-black py-5 rounded-3xl font-bold hover:bg-zinc-200 transition">REDEEM VOUCHER</button>
+        <div class="max-w-2xl mx-auto mt-10">
+            <div class="bg-[#0a0a0a] border border-white/5 rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
+                <!-- Visual Part -->
+                <div class="md:w-1/2 h-64 md:h-auto relative">
+                    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=2071&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
+                    <div class="relative p-10 h-full flex flex-col justify-end">
+                        <h2 class="text-3xl font-bold tracking-tighter uppercase italic">TrueMoney</h2>
+                        <p class="text-zinc-500 text-xs tracking-widest uppercase">Gift Voucher Redeem</p>
+                    </div>
+                </div>
+                
+                <!-- Input Part -->
+                <div class="p-10 md:w-1/2 flex flex-col justify-center">
+                    <h2 class="text-2xl font-bold mb-2 tracking-tighter uppercase">Topup Center</h2>
+                    <p class="text-zinc-500 mb-8 text-[10px] font-light uppercase tracking-widest">Enter your TrueMoney Gift link below</p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white/5 border border-white/10 p-4 rounded-2xl">
+                            <label class="block text-[9px] text-zinc-500 uppercase tracking-[0.2em] mb-2">Voucher URL</label>
+                            <input type="text" id="topup-link" class="w-full bg-transparent border-none text-white focus:ring-0 outline-none placeholder:text-zinc-800 text-sm" placeholder="https://gift.truemoney.com/...">
+                        </div>
+                        
+                        <button onclick="processTrueMoney()" class="w-full bg-white text-black py-4 rounded-2xl font-black tracking-widest hover:bg-zinc-200 transition-all text-xs">
+                            REDEEM PTS
+                        </button>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/5 text-[9px] text-zinc-600 uppercase tracking-widest leading-loose font-light">
+                        1. Open TrueMoney Wallet<br>
+                        2. Select "Send Gift"<br>
+                        3. Create link and paste here
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -269,16 +299,29 @@
             }
         }
 
-        function processTopup() {
+        // TrueMoney Gift Function
+        function processTrueMoney() {
             if(!currentUser) return alert('PLEASE LOGIN FIRST');
-            if(document.getElementById('topup-code').value === "1234") {
-                let users = JSON.parse(localStorage.getItem('shopUsers'));
-                users[currentUser.username].points += 1000;
-                currentUser.points += 1000;
-                localStorage.setItem('shopUsers', JSON.stringify(users));
-                localStorage.setItem('loggedUser', JSON.stringify(currentUser));
-                alert('REDEEM SUCCESS: +1,000 PTS'); updateUI(); showSection('categories');
-            } else alert('INVALID VOUCHER CODE');
+            const link = document.getElementById('topup-link').value;
+            const pattern = /^https:\/\/gift\.truemoney\.com\/campaign\/\?v=[a-zA-Z0-9]+$/;
+
+            if(!link) return alert('กรุณาใส่ลิงก์ซองของขวัญ');
+            if(!pattern.test(link)) return alert('รูปแบบลิงก์ไม่ถูกต้อง!');
+
+            // Simulation (In real world, this sends to backend API)
+            let users = JSON.parse(localStorage.getItem('shopUsers'));
+            const amount = 500; // Mock amount
+            
+            users[currentUser.username].points += amount;
+            currentUser.points += amount;
+            
+            localStorage.setItem('shopUsers', JSON.stringify(users));
+            localStorage.setItem('loggedUser', JSON.stringify(currentUser));
+            
+            alert(`REDEEM SUCCESS: +${amount.toLocaleString()} PTS`);
+            document.getElementById('topup-link').value = '';
+            showSection('categories');
+            updateUI();
         }
 
         function logout() { localStorage.removeItem('loggedUser'); location.reload(); }
